@@ -1,13 +1,10 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import org.launchcode.techjobs.persistent.models.Employer;
-import org.launchcode.techjobs.persistent.models.Job;
-import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("employers")
-public class EmployerController {
+public class SkillController {
 
     @Autowired
     private EmployerRepository employerRepository;
@@ -31,7 +26,7 @@ public class EmployerController {
     @RequestMapping("")
     public String index(Model model) {
 
-        model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
 
         return "index";
 
@@ -39,27 +34,26 @@ public class EmployerController {
 
 
     @GetMapping("add")
-    public String displayAddEmployerForm(Model model) {
+    public String displayAddSkillForm(Model model) {
         model.addAttribute(new Employer());
         return "employers/add";
     }
 
     @PostMapping("add")
-    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
-                                    Errors errors, Model model) {
+    public String processAddSkillForm(@ModelAttribute @Valid Employer newEmployer,
+                                         Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             return "employers/add";
         }
 
-
         return "redirect:";
     }
 
     @GetMapping("view/{employerId}")
-    public String displayViewEmployer(Model model, @PathVariable int employerId) {
+    public String displayViewSkill(Model model, @PathVariable int employerId) {
 
-        Optional optEmployer = employerRepository.findById(1);
+        Optional optEmployer = skillRepository.findById(1);
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
@@ -69,3 +63,4 @@ public class EmployerController {
         }
     }
 }
+
