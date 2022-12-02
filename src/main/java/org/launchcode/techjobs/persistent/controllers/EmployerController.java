@@ -1,11 +1,8 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import org.launchcode.techjobs.persistent.models.Employer;
-import org.launchcode.techjobs.persistent.models.Job;
-import org.launchcode.techjobs.persistent.models.Skill;
+//import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
-import org.launchcode.techjobs.persistent.models.data.JobRepository;
-import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +18,6 @@ public class EmployerController {
 
     @Autowired
     private EmployerRepository employerRepository;
-
-    @Autowired
-    private JobRepository jobRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -49,10 +40,13 @@ public class EmployerController {
                                     Errors errors, Model model) {
 
         if (errors.hasErrors()) {
+            //model.addAttribute("employer", "Add Employer");
+            //model.addAttribute(new Employer());
             return "employers/add";
         }
 
 
+        employerRepository.save(newEmployer);
         return "redirect:";
     }
 
